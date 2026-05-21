@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portfolio - Umar Amin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Integrated from style.css & header.php */
+        :root {
+            --primary-color: #4F46E5;
+            --primary-hover: #4338CA;
+            --bg-color: #f5f6f7;
+            --text-main: #111111;
+            --text-muted: #010612;
+            --card-bg: #b0ed72;
+            --border-color: #E5E7EB;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            box-shadow: 0 1px 3px 0 rgba(8, 8, 8, 0.934);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        nav {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a.active, .nav-links a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        main {
+            flex: 1;
+            max-width: 1000px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            box-sizing: border-box;
+        }
+
+        /* Card layout */
+        .card {
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .profile-layout {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-color);
+        }
+
+        .profile-text h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+        }
+
+        .profile-text p {
+            margin: 0.5rem 0;
+            color: var(--text-muted);
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .service-card {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .service-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Forms styling */
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Alerts and Displays */
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background-color: #DEF7EC;
+            color: #03543F;
+        }
+
+        .alert-error {
+            background-color: #FDE8E8;
+            color: #9B1C1C;
+        }
+
+        .data-display {
+            background: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .data-display h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .data-display ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .data-display li {
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Dynamic Section Toggle */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active-tab {
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a onclick="switchTab('home')" class="brand">MyPortfolio</a>
+            <ul class="nav-links">
+                <li><a id="nav-home" onclick="switchTab('home')" class="active">Home</a></li>
+                <li><a id="nav-signup" onclick="switchTab('signup')">Signup</a></li>
+                <li><a id="nav-login" onclick="switchTab('login')">Login</a></li>
+                <li><a id="nav-contact" onclick="switchTab('contact')">Contact</a></li>
+                <li><a id="nav-calculator" onclick="switchTab('calculator')">Age Calculator</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="tab-home" class="tab-content active-tab">
+            <div class="card">
+                <div class="profile-layout">
+                    <img src="umi.jpg" alt="Umar Amin" class="profile-pic">
+                    <div class="profile-text">
+                        <h1>Welcome to My Profile</h1>
+                        <p>Assalamoalaikum, I am <strong style="color: var(--primary-color)">Umar Amin</strong>.</p>
+                        <p>I am currently a <strong>Computer Science Student & Developer</strong></p>
+                        <p><strong>Roll No:</strong> BSCS51F22RO42</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Services I Provide</h2>
+                <div class="services-grid">
+                    <div class='service-card'>
+                        <h3>Web Development</h3>
+                        <p>Professional Web Development tailored to your needs.</p>
+                    </div>
+                    <div class='service-card'>
+                        <h3>Programming Help</h3>
+                        <p>Professional Programming Help tailored to your needs.</p>
+                    </div>
+                    <div class='service-card'>
+                        <h3>IT Support</h3>
+                        <p>Professional IT Support tailored to your needs.</p>
+                    </div>
+                    <div class='service-card'>
+                        <h3>SEO Optimization</h3>
+                        <p>Professional SEO Optimization tailored to your needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-signup" class="tab-content">
+            <div class="card">
+                <h2>Signup Form</h2>
+                <p>Please register using the form below. Data is processed via frontend simulations.</p>
+                
+                <form id="signupForm" onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="firstname" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="lastname" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="date" id="dob" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="signup_email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="signup_password" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mobile Number</label>
+                        <input type="text" required>
+                    </div>
+                    <button type="submit" class="btn">Sign Up</button>
+                </form>
+
+                <div id="signupResult" style="display: none;" class="data-display">
+                    <h3>Registration Details Processed (String Functions)</h3>
+                    <ul>
+                        <li><strong>Full Name (Uppercase):</strong> <span id="res-upper"></span></li>
+                        <li><strong>First Name Length:</strong> <span id="res-len"></span> characters</li>
+                        <li><strong>Last Name Reversed:</strong> <span id="res-rev"></span></li>
+                        <li><strong>Proper Capitalization:</strong> <span id="res-cap"></span></li>
+                        <li><strong>Email (Obfuscated):</strong> <span id="res-obf"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-login" class="tab-content">
+            <div class="card">
+                <h2>Login</h2>
+                <p>Use <strong>test@student.com</strong> and <strong>password123</strong> to login.</p>
+
+                <div id="loginAlert" style="display: none;" class="alert"></div>
+
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="login_email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="login_password" required>
+                    </div>
+                    <button type="submit" class="btn">Log In</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="tab-contact" class="tab-content">
+            <div class="card">
+                <h2>Contact Information</h2>
+                <p>Feel free to reach out to me using the details below:</p>
+                <div class="data-display">
+                    <ul>
+                        <li><strong>Name:</strong> Umar Amin</li>
+                        <li><strong>Designation:</strong> Lead Developer</li>
+                        <li><strong>Phone Number:</strong> +92 3277269576</li>
+                        <li><strong>Email:</strong> umaramin05655@gmail.com</li>
+                        <li><strong>Address:</strong> DERA ISMAIL KHAN KPK , PAKISTAN</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-calculator" class="tab-content">
+            <div class="card">
+                <h2>Age Calculator (Extra Feature)</h2>
+                <p>Calculate your age based on your birth year. This demonstrates the loop simulation.</p>
+
+                <form onsubmit="handleAgeCalc(event)">
+                    <div class="form-group">
+                        <label>Select Birth Year:</label>
+                        <select id="birth_year" required>
+                            <option value="">--Select Year--</option>
+                            </select>
+                    </div>
+                    <button type="submit" class="btn">Calculate Age</button>
+                </form>
+
+                <div id="calcResult" style="display: none; margin-top: 1.5rem;" class="alert alert-success">
+                    <strong>Result:</strong> You are approximately <span id="computed-age"></span> years old.
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Student Portfolio. Developed for Assignment Portfolio Presentation.</p>
+    </footer>
+
+    <script>
+        // Tab switching functionality
+        function switchTab(tabName) {
+            // Hide all sections
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active-tab');
+            });
+            // Remove active classes from navigation links
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Show active tab and link
+            document.getElementById('tab-' + tabName).classList.add('active-tab');
+            document.getElementById('nav-' + tabName).classList.add('active');
+        }
+
+        // Generate Dropdown Years (Like PHP For Loop Requirement)
+        const selectYear = document.getElementById('birth_year');
+        const currentYear = new Date().getFullYear(); // 2026
+        for (let year = currentYear; year >= 1900; year--) {
+            let option = document.createElement('option');
+            option.value = year;
+            option.textContent = year;
+            selectYear.appendChild(option);
+        }
+
+        // Live Age Calculator Functionality
+        function handleAgeCalc(e) {
+            e.preventDefault();
+            const birthYear = parseInt(document.getElementById('birth_year').value);
+            const age = currentYear - birthYear;
+            document.getElementById('computed-age').textContent = age;
+            document.getElementById('calcResult').style.display = 'block';
+        }
+
+        // Live Login Verification (If-Else Verification Requirement)
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login_email').value;
+            const pass = document.getElementById('login_password').value;
+            const alertBox = document.getElementById('loginAlert');
+
+            alertBox.style.display = 'block';
+            if (email === "test@student.com" && pass === "password123") {
+                alertBox.className = "alert alert-success";
+                alertBox.textContent = "Login Successful";
+            } else {
+                alertBox.className = "alert alert-error";
+                alertBox.textContent = "Invalid User";
+            }
+        }
+
+        // Live Signup Text Alteration (String Functions Requirements)
+        function handleSignup(e) {
+            e.preventDefault();
+            const fName = document.getElementById('firstname').value;
+            const lName = document.getElementById('lastname').value;
+            const email = document.getElementById('signup_email').value;
+
+            // 1. Uppercase Simulation
+            document.getElementById('res-upper').textContent = (fName + " " + lName).toUpperCase();
+            // 2. Length Simulation
+            document.getElementById('res-len').textContent = fName.length;
+            // 3. Reverse String Simulation
+            document.getElementById('res-rev').textContent = lName.split("").reverse().join("");
+            // 4. Proper Capitalization
+            const full = fName + " " + lName;
+            document.getElementById('res-cap').textContent = full.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+            // 5. Email Obfuscate Simulation
+            document.getElementById('res-obf').textContent = email.toLowerCase().replace("@", "[at]");
+
+            document.getElementById('signupResult').style.display = 'block';
+        }
+    </script>
+</body>
+              </html>
+              
