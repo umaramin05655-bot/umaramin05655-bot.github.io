@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Live Preview</title>
+</head>
+<body>
+
+<div id="site"></div>
+
+<script>
+document.getElementById("site").innerHTML =
+localStorage.getItem("publishedSite") || "No Site Published";
+</script>
+
+</body>
+</html>
