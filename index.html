@@ -3,341 +3,283 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Student Portfolio - Umar Amin</title>
+<title>Umar Amin | Ultra Portfolio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
-    --primary:#4F46E5;
-    --primary-dark:#3730A3;
-    --bg:#f4f6fb;
-    --card:#ffffff;
-    --text:#111827;
-    --muted:#6b7280;
-    --border:#e5e7eb;
-    --shadow:0 10px 25px rgba(0,0,0,0.08);
+  --bg:#0f172a;
+  --card:#111827;
+  --text:#ffffff;
+  --primary:#4F46E5;
+}
+
+.light{
+  --bg:#f4f6fb;
+  --card:#ffffff;
+  --text:#111;
 }
 
 *{
-    box-sizing:border-box;
-    transition:0.2s ease;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Inter;
+  scroll-behavior:smooth;
 }
 
 body{
-    margin:0;
-    font-family:Inter, sans-serif;
-    background:var(--bg);
-    color:var(--text);
+  background:var(--bg);
+  color:var(--text);
+  transition:0.4s;
+  overflow-x:hidden;
 }
 
-/* HEADER */
-header{
-    position:sticky;
-    top:0;
-    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
-    padding:12px 0;
-    box-shadow:0 4px 12px rgba(0,0,0,0.15);
-    z-index:10;
+/* PARTICLES */
+#particles{
+  position:fixed;
+  width:100%;
+  height:100%;
+  z-index:-1;
 }
 
+/* NAV */
 nav{
-    max-width:1100px;
-    margin:auto;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 20px;
+  position:fixed;
+  width:100%;
+  top:0;
+  display:flex;
+  justify-content:space-between;
+  padding:15px 20px;
+  background:rgba(79,70,229,0.9);
+  backdrop-filter:blur(10px);
+  color:white;
 }
 
-.brand{
-    color:white;
-    font-size:22px;
-    font-weight:700;
-    cursor:pointer;
+nav a{
+  color:white;
+  margin:0 10px;
+  text-decoration:none;
 }
 
-.nav-links{
-    display:flex;
-    gap:15px;
-    list-style:none;
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
 }
 
-.nav-links a{
-    color:white;
-    text-decoration:none;
-    padding:8px 12px;
-    border-radius:8px;
-    font-weight:500;
+.hero h1{
+  font-size:40px;
 }
 
-.nav-links a:hover,
-.nav-links a.active{
-    background:white;
-    color:var(--primary);
-}
-
-/* MAIN */
-main{
-    max-width:1100px;
-    margin:30px auto;
-    padding:0 20px;
+.hero span{
+  color:var(--primary);
 }
 
 /* CARD */
+section{
+  padding:80px 20px;
+  max-width:1000px;
+  margin:auto;
+}
+
 .card{
-    background:var(--card);
-    padding:25px;
-    border-radius:16px;
-    box-shadow:var(--shadow);
-    margin-bottom:25px;
+  background:var(--card);
+  padding:25px;
+  border-radius:15px;
+  margin-top:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 
-.card:hover{
-    transform:translateY(-3px);
+/* SKILLS BAR */
+.skill{
+  margin:10px 0;
 }
 
-/* PROFILE */
-.profile-layout{
-    display:flex;
-    align-items:center;
-    gap:20px;
-    flex-wrap:wrap;
+.bar{
+  height:10px;
+  background:#ddd;
+  border-radius:10px;
+  overflow:hidden;
 }
 
-.profile-pic{
-    width:140px;
-    height:140px;
-    border-radius:50%;
-    object-fit:cover;
-    border:4px solid var(--primary);
-    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+.fill{
+  height:10px;
+  background:var(--primary);
+  width:0;
+  animation:fill 2s forwards;
 }
 
-.profile-text h1{
-    margin:0;
-    font-size:26px;
+@keyframes fill{
+  to{width:var(--w);}
 }
 
-/* SERVICES */
-.services-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:15px;
-    margin-top:15px;
-}
-
-.service-card{
-    padding:18px;
-    border:1px solid var(--border);
-    border-radius:12px;
-    background:#f9fafb;
-    text-align:center;
-}
-
-.service-card:hover{
-    transform:scale(1.03);
-    border-color:var(--primary);
-    box-shadow:0 10px 20px rgba(0,0,0,0.08);
-}
-
-/* FORM */
-input,select{
-    width:100%;
-    padding:10px;
-    border-radius:8px;
-    border:1px solid var(--border);
-    outline:none;
-}
-
-input:focus,select:focus{
-    border-color:var(--primary);
-    box-shadow:0 0 0 3px rgba(79,70,229,0.15);
-}
-
+/* BUTTONS */
 .btn{
-    background:var(--primary);
-    color:white;
-    border:none;
-    padding:10px 18px;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:600;
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:10px 15px;
+  border-radius:10px;
+  cursor:pointer;
+  margin-top:10px;
 }
-
-.btn:hover{
-    background:var(--primary-dark);
-}
-
-/* ALERT */
-.alert{
-    padding:12px;
-    border-radius:10px;
-    margin-top:10px;
-}
-
-.alert-success{
-    background:#dcfce7;
-    color:#166534;
-}
-
-.alert-error{
-    background:#fee2e2;
-    color:#991b1b;
-}
-
-/* TAB SYSTEM */
-.tab-content{display:none;}
-.active-tab{display:block;}
 
 /* FOOTER */
 footer{
-    text-align:center;
-    padding:20px;
-    background:linear-gradient(135deg,var(--primary),var(--primary-dark));
-    color:white;
-    margin-top:40px;
+  text-align:center;
+  padding:20px;
+  background:var(--primary);
+  color:white;
+}
+
+/* TYPING */
+.typing{
+  font-size:18px;
+  color:#cbd5e1;
+  margin-top:10px;
+}
+
+/* FLOAT BUTTON */
+.whatsapp{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#25D366;
+  color:white;
+  padding:12px;
+  border-radius:50%;
+  font-size:20px;
 }
 </style>
 </head>
 
 <body>
 
-<header>
+<canvas id="particles"></canvas>
+
+<!-- NAV -->
 <nav>
-<div class="brand" onclick="switchTab('home')">MyPortfolio</div>
+<div><b>Umar Amin</b></div>
 
-<ul class="nav-links">
-<li><a id="nav-home" class="active" onclick="switchTab('home')">Home</a></li>
-<li><a id="nav-signup" onclick="switchTab('signup')">Signup</a></li>
-<li><a id="nav-login" onclick="switchTab('login')">Login</a></li>
-<li><a id="nav-contact" onclick="switchTab('contact')">Contact</a></li>
-<li><a id="nav-calculator" onclick="switchTab('calculator')">Age Calculator</a></li>
-</ul>
-</nav>
-</header>
-
-<main>
-
-<!-- HOME -->
-<div id="tab-home" class="tab-content active-tab">
-
-<div class="card">
-<div class="profile-layout">
-<img src="umi.jpg" class="profile-pic">
 <div>
-<h1>Welcome 👋</h1>
-<p>I am <b style="color:var(--primary)">Umar Amin</b></p>
-<p>Computer Science Student & Developer</p>
-<p><b>Roll No:</b> BSCS51F22RO42</p>
+<a href="#home">Home</a>
+<a href="#skills">Skills</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+<button onclick="toggle()">🌙</button>
 </div>
-</div>
-</div>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="hero">
+<h1>Hi, I'm <span>Umar Amin</span></h1>
+<div class="typing" id="typing"></div>
+
+<button class="btn" onclick="downloadCV()">📄 Download CV</button>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+<h2>Skills</h2>
 
 <div class="card">
-<h2>Services</h2>
-<div class="services-grid">
-<div class="service-card">Web Development</div>
-<div class="service-card">Programming Help</div>
-<div class="service-card">IT Support</div>
-<div class="service-card">SEO Optimization</div>
+<div class="skill">HTML<div class="bar"><div class="fill" style="--w:95%"></div></div></div>
+<div class="skill">CSS<div class="bar"><div class="fill" style="--w:90%"></div></div></div>
+<div class="skill">JavaScript<div class="bar"><div class="fill" style="--w:85%"></div></div></div>
+<div class="skill">React<div class="bar"><div class="fill" style="--w:70%"></div></div></div>
 </div>
-</div>
+</section>
 
-</div>
-
-<!-- SIGNUP -->
-<div id="tab-signup" class="tab-content">
+<!-- PROJECTS -->
+<section id="projects">
+<h2>Projects</h2>
 <div class="card">
-<h2>Signup</h2>
-
-<form onsubmit="handleSignup(event)">
-<input id="firstname" placeholder="First Name" required><br><br>
-<input id="lastname" placeholder="Last Name" required><br><br>
-<input id="dob" type="date" required><br><br>
-<input id="signup_email" placeholder="Email" required><br><br>
-<input id="signup_password" type="password" placeholder="Password" required><br><br>
-<button class="btn">Sign Up</button>
-</form>
-
+<p>✔ Portfolio Website</p>
+<p>✔ Calculator App</p>
+<p>✔ Login UI System</p>
+<p>✔ Student Dashboard</p>
 </div>
-</div>
-
-<!-- LOGIN -->
-<div id="tab-login" class="tab-content">
-<div class="card">
-<h2>Login</h2>
-
-<form onsubmit="handleLogin(event)">
-<input id="login_email" placeholder="Email"><br><br>
-<input id="login_password" type="password" placeholder="Password"><br><br>
-<button class="btn">Login</button>
-</form>
-
-<div id="loginAlert"></div>
-
-</div>
-</div>
+</section>
 
 <!-- CONTACT -->
-<div id="tab-contact" class="tab-content">
-<div class="card">
+<section id="contact">
 <h2>Contact</h2>
-<p>📞 +92 3277269576</p>
-<p>📧 umaramin05655@gmail.com</p>
-<p>📍 D.I.Khan, Pakistan</p>
-</div>
-</div>
-
-<!-- CALCULATOR -->
-<div id="tab-calculator" class="tab-content">
 <div class="card">
-<h2>Age Calculator</h2>
-
-<select id="birth_year"></select><br><br>
-<button class="btn" onclick="calcAge()">Calculate</button>
-
-<p id="result"></p>
+<p>Email: umaramin05655@gmail.com</p>
+<p>Phone: +92 3277269576</p>
 </div>
-</div>
-
-</main>
+</section>
 
 <footer>
 © 2026 Umar Amin Portfolio
 </footer>
 
+<a class="whatsapp" href="https://wa.me/923277269576">💬</a>
+
 <script>
-function switchTab(tab){
-document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active-tab'));
-document.querySelectorAll('.nav-links a').forEach(a=>a.classList.remove('active'));
 
-document.getElementById('tab-'+tab).classList.add('active-tab');
-document.getElementById('nav-'+tab).classList.add('active');
+/* DARK MODE */
+function toggle(){
+  document.body.classList.toggle("light");
 }
 
-/* YEAR */
-let select=document.getElementById("birth_year");
-for(let y=2026;y>=1900;y--){
-select.innerHTML+=`<option>${y}</option>`;
+/* TYPING EFFECT */
+let text="Frontend Developer | Web Designer | Programmer";
+let i=0;
+
+function type(){
+  if(i<text.length){
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(type,80);
+  }
+}
+type();
+
+/* CV DOWNLOAD */
+function downloadCV(){
+  let a=document.createElement("a");
+  a.href="https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
+  a.download="Umar_CV.pdf";
+  a.click();
 }
 
-function calcAge(){
-let y=select.value;
-document.getElementById("result").innerText="Age: "+(2026-y);
+/* PARTICLES */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+
+for(let i=0;i<80;i++){
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*3
+  });
 }
 
-function handleLogin(e){
-e.preventDefault();
-let em=document.getElementById("login_email").value;
-let ps=document.getElementById("login_password").value;
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="white";
 
-if(em==="test@student.com" && ps==="password123"){
-document.getElementById("loginAlert").innerHTML="<div class='alert alert-success'>Login Successful</div>";
-}else{
-document.getElementById("loginAlert").innerHTML="<div class='alert alert-error'>Invalid Login</div>";
+  particles.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+  });
+
+  requestAnimationFrame(draw);
 }
-}
+draw();
 </script>
 
 </body>
