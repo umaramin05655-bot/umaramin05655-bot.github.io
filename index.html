@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SiteForge v2 - SaaS Builder</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0b1220;
+  color:white;
+}
+
+/* LOGIN */
+#login{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+}
+
+input,textarea{
+  padding:10px;
+  margin:5px;
+  width:300px;
+  border-radius:8px;
+  border:none;
+}
+
+button{
+  padding:10px;
+  background:#6C63FF;
+  border:none;
+  color:white;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* APP */
+#app{
+  display:none;
+  padding:20px;
+}
+
+.container{
+  display:grid;
+  grid-template-columns:250px 1fr;
+  gap:10px;
+}
+
+/* SIDEBAR */
+.sidebar{
+  background:#111827;
+  padding:10px;
+  border-radius:10px;
+  height:85vh;
+}
+
+.blockBtn{
+  width:100%;
+  margin:5px 0;
+}
+
+/* CANVAS */
+.canvas{
+  background:#f4f6fb;
+  color:black;
+  border-radius:10px;
+  padding:20px;
+  min-height:85vh;
+}
+
+.block{
+  background:white;
+  padding:10px;
+  margin:10px 0;
+  border-radius:10px;
+  box-shadow:0 5px 10px rgba(0,0,0,0.1);
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+<h2>🚀 SiteForge v2 Login</h2>
+
+<input id="email" placeholder="Email">
+<input id="pass" type="password" placeholder="Password">
+
+<button onclick="login()">Login / Signup</button>
+</div>
+
+<!-- APP -->
+<div id="app">
+
+<h2>Dashboard</h2>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+<button class="blockBtn" onclick="add('text')">Add Text</button>
+<button class="blockBtn" onclick="add('heading')">Add Heading</button>
+<button class="blockBtn" onclick="add('image')">Add Image</button>
+<button class="blockBtn" onclick="save()">Save</button>
+<button class="blockBtn" onclick="load()">Load</button>
+<button class="blockBtn" onclick="publish()">Publish</button>
+
+</div>
+
+<!-- CANVAS -->
+<div class="canvas" id="canvas">
+<h3>Live Website Builder</h3>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* FIREBASE */
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_DOMAIN",
+  projectId: "YOUR_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+let currentUser;
+
+/* LOGIN */
+function login(){
+  let email=document.getElementById("email").value;
+  let pass=document.getElementById("pass").value;
+
+  auth.signInWithEmailAndPassword(email,pass)
+  .then(u=>start(u.user))
+  .catch(()=>{
+    auth.createUserWithEmailAndPassword(email,pass)
+    .then(u=>start(u.user));
+  });
+}
+
+function start(user){
+  currentUser=user;
+  document.getElementById("login").style.display="none";
+  document.getElementById("app").style.display="block";
+}
+
+/* ADD BLOCKS */
+function add(type){
+  let el=document.createElement("div");
+  el.className="block";
+
+  if(type==="text"){
+    el.contentEditable=true;
+    el.innerText="Edit text...";
+  }
+
+  if(type==="heading"){
+    el.contentEditable=true;
+    el.innerHTML="<h2>Heading</h2>";
+  }
+
+  if(type==="image"){
+    let url=prompt("Image URL:");
+    el.innerHTML=`<img src="${url}" style="width:100%">`;
+  }
+
+  document.getElementById("canvas").appendChild(el);
+}
+
+/* SAVE TO FIREBASE */
+function save(){
+  let html=document.getElementById("canvas").innerHTML;
+
+  db.collection("sites").add({
+    uid:currentUser.uid,
+    content:html
+  });
+
+  alert("Saved to Cloud ✔");
+}
+
+/* LOAD */
+function load(){
+  let box=document.getElementById("canvas");
+  box.innerHTML="";
+
+  db.collection("sites")
+  .where("uid","==",currentUser.uid)
+  .get()
+  .then(snap=>{
+    snap.forEach(doc=>{
+      box.innerHTML += doc.data().content;
+    });
+  });
+}
+
+/* PUBLISH (simple preview link idea) */
+function publish(){
+  let data=document.getElementById("canvas").innerHTML;
+  localStorage.setItem("publishedSite",data);
+  window.open("preview.html","_blank");
+}
+
+</script>
+
+</body>
+</html>
