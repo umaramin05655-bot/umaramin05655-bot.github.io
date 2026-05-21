@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>REAL CMS SaaS</title>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
+
+<style>
+body{font-family:Arial;background:#0b1220;color:white;margin:0}
+.container{display:flex;height:100vh}
+.sidebar{width:250px;background:#111;padding:20px}
+.main{flex:1;padding:20px}
+input,textarea{width:100%;padding:10px;margin:5px 0}
+button{padding:10px;background:#6C63FF;color:white;border:none;cursor:pointer}
+.card{background:#1f2937;padding:10px;margin:10px 0;border-radius:10px}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="sidebar">
+<h2>CMS SaaS</h2>
+<button onclick="showAdd()">Add Page</button>
+<button onclick="load()">All Pages</button>
+</div>
+
+<div class="main">
+
+<div id="addBox">
+<h2>Create Page</h2>
+<input id="title" placeholder="Title">
+<textarea id="content" placeholder="Content / Video URL"></textarea>
+<button onclick="add()">Save Online</button>
+</div>
+
+<div id="list"></div>
+
+</div>
+
+</div>
+
+<script>
+// 🔥 FIREBASE CONFIG (PUT YOURS HERE)
+const firebaseConfig = {
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_DOMAIN",
+  projectId: "YOUR_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+function add(){
+  db.collection("pages").add({
+    title:document.getElementById("title").value,
+    content:document.getElementById("content").value
+  });
+
+  alert("Saved Online ✔");
+  load();
+}
+
+function load(){
+  let box=document.getElementById("list");
+  box.innerHTML="";
+
+  db.collection("pages").get().then(snap=>{
+    snap.forEach(doc=>{
+      let d=doc.data();
+
+      box.innerHTML += `
+        <div class="card">
+          <h3>${d.title}</h3>
+          <p>${d.content}</p>
+        </div>
+      `;
+    });
+  });
+}
+
+function showAdd(){
+  document.getElementById("addBox").style.display="block";
+}
+
+load();
+</script>
+
+</body>
+</html>
