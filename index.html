@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friendbook FIX</title>
+
+<!-- ✅ FIXED FIREBASE COMPAT SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#0b1220;
+  color:white;
+}
+
+#login{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+
+input{
+  padding:10px;
+  margin:5px;
+  width:250px;
+  border-radius:8px;
+  border:none;
+}
+
+button{
+  padding:10px;
+  background:#1877f2;
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+#app{
+  display:none;
+  padding:10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+<h2>💙 Friendbook</h2>
+
+<input id="email" placeholder="Email">
+<input id="pass" type="password" placeholder="Password">
+
+<button onclick="login()">Login / Signup</button>
+</div>
+
+<!-- APP -->
+<div id="app">
+<h2>Welcome to Friendbook 🚀</h2>
+<button onclick="logout()">Logout</button>
+</div>
+
+<script>
+
+/* 🔥 FIREBASE CONFIG (PASTE YOURS) */
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+
+/* ✅ LOGIN FIXED */
+function login(){
+  let email = document.getElementById("email").value;
+  let pass = document.getElementById("pass").value;
+
+  if(!email || !pass){
+    alert("Email and Password required");
+    return;
+  }
+
+  // SIGN IN
+  auth.signInWithEmailAndPassword(email, pass)
+  .then(user => {
+    start(user.user);
+  })
+  .catch(err => {
+
+    // IF NOT EXIST → CREATE ACCOUNT
+    auth.createUserWithEmailAndPassword(email, pass)
+    .then(user => {
+      start(user.user);
+    })
+    .catch(error => {
+      alert(error.message);
+      console.log(error);
+    });
+
+  });
+}
+
+/* START APP */
+function start(user){
+  document.getElementById("login").style.display="none";
+  document.getElementById("app").style.display="block";
+}
+
+/* LOGOUT */
+function logout(){
+  auth.signOut();
+  location.reload();
+}
+
+</script>
+
+</body>
+</html>
