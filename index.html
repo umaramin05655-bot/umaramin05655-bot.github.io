@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umar Amin | Software Developer Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Modern & Premium UI Styling */
+        :root {
+            --primary: #4F46E5;
+            --primary-hover: #4338CA;
+            --accent: #06B6D4;
+            --bg-main: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --text-dark: #0F172A;
+            --text-muted: #475569;
+            --border: #E2E8F0;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Header Navigation */
+        header {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .brand span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.6rem 1.1rem;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .nav-links a.active, .nav-links a:hover {
+            background-color: rgba(79, 70, 229, 0.08);
+            color: var(--primary);
+        }
+
+        /* Main Container */
+        main {
+            flex: 1;
+            max-width: 1100px;
+            width: 100%;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+            box-sizing: border-box;
+        }
+
+        /* Hero / Profile Section */
+        .hero-card {
+            background: linear-gradient(135deg, #FFFFFF 0%, #EEF2FF 100%);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 3rem 2.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2.5rem;
+        }
+
+        .profile-layout {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .profile-pic {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.2);
+        }
+
+        .profile-text {
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .profile-text h1 {
+            margin: 0 0 0.75rem 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .profile-text .subtitle {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .profile-text .info-tag {
+            display: inline-block;
+            background: white;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        /* Premium Cards */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2.5rem;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        /* Services Custom Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .service-card {
+            background: var(--bg-main);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            background: white;
+            border-color: var(--primary);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        .service-card h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.15rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* Modernized Forms Elements */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .profile-layout { display: flex; flex-direction: column; text-align: center; gap: 1.5rem; }
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        @media (max-width: 600px) {
+            .form-group.full-width { grid-column: span 1; }
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-sizing: border-box;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: var(--transition);
+            background-color: var(--bg-main);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.85rem 2rem;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(79, 70, 229, 0.3);
+        }
+
+        /* Displays & Status Indicators */
+        .alert {
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius-md);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid transparent;
+        }
+
+        .alert-success {
+            background-color: #F0FDF4;
+            color: #166534;
+            border-color: #DCFCE7;
+        }
+
+        .alert-error {
+            background-color: #FEF2F2;
+            color: #991B1B;
+            border-color: #FEE2E2;
+        }
+
+        .data-display {
+            background: var(--bg-main);
+            padding: 1.75rem;
+            border-radius: var(--radius-md);
+            margin-top: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .data-display h3 {
+            margin-top: 0;
+            margin-bottom: 1.25rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .data-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .data-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 1rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .data-list li:last-child {
+            border-bottom: none;
+        }
+
+        .data-list strong {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .data-list span {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* Dynamic Tabs Visibility */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active-tab {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a onclick="switchTab('home')" class="brand">Umar<span>Amin.</span></a>
+            <ul class="nav-links">
+                <li><a id="nav-home" onclick="switchTab('home')" class="active">Home</a></li>
+                <li><a id="nav-signup" onclick="switchTab('signup')">Signup</a></li>
+                <li><a id="nav-login" onclick="switchTab('login')">Login</a></li>
+                <li><a id="nav-contact" onclick="switchTab('contact')">Contact</a></li>
+                <li><a id="nav-calculator" onclick="switchTab('calculator')">Age Calculator</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="tab-home" class="tab-content active-tab">
+            <div class="hero-card">
+                <div class="profile-layout">
+                    <img src="umi.jpg" alt="Umar Amin" class="profile-pic">
+                    <div class="profile-text">
+                        <h1>Welcome to My Profile</h1>
+                        <p class="subtitle">Computer Science Student & Full Stack Developer</p>
+                        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Assalamoalaikum! I build clean, efficient, and robust web applications. Passionate about system logic and sleek frontend architectures.</p>
+                        <div class="info-tag">Roll No: BSCS51F22RO42</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Services I Provide</h2>
+                <div class="services-grid">
+                    <div class='service-card'>
+                        <h3>Web Development</h3>
+                        <p>Modern, responsive custom websites tailored exactly to your requirements.</p>
+                    </div>
+                    <div class='service-card'>
+                        <h3>Programming Help</h3>
+                        <p>Expert programming consultation, logic design, and debugging assistance.</p>
+                    </div>
+                    <div class='service-card'>
+                        <h3>IT Support</h3>
+                        <p>Comprehensive system troubleshooting and complete structural setup support.</p>
+                    </div>
+                    <div class='service-card'>
+                        <h3>SEO Optimization</h3>
+                        <p>Boosting website ranking visibility and structure performance dynamically.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-signup" class="tab-content">
+            <div class="card">
+                <h2>Create Account</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Fill in your details below to process data visualization variables.</p>
+                
+                <form id="signupForm" onsubmit="handleSignup(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" id="firstname" required placeholder="Umar">
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" id="lastname" required placeholder="Amin">
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" id="dob" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="signup_email" required placeholder="name@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="signup_password" required placeholder="••••••••">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" required placeholder="••••••••">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Mobile Number</label>
+                            <input type="text" required placeholder="+92 3xx xxxxxxx">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">Register Account</button>
+                </form>
+
+                <div id="signupResult" style="display: none;" class="data-display">
+                    <h3>Processed Registration Variables (String Core Logic)</h3>
+                    <ul class="data-list">
+                        <li><strong>Full Name (Uppercase):</strong> <span id="res-upper"></span></li>
+                        <li><strong>First Name Length:</strong> <span><span id="res-len"></span> chars</span></li>
+                        <li><strong>Last Name Reversed:</strong> <span id="res-rev"></span></li>
+                        <li><strong>Proper Capitalization:</strong> <span id="res-cap"></span></li>
+                        <li><strong>Obfuscated Email Endpoint:</strong> <span id="res-obf" style="color: var(--primary);"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-login" class="tab-content">
+            <div class="card" style="max-width: 500px; margin: 0 auto;">
+                <h2>Account Login</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Use <strong>test@student.com</strong> & <strong>password123</strong></p>
+
+                <div id="loginAlert" style="display: none;" class="alert"></div>
+
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="login_email" required placeholder="test@student.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="login_password" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Secure Login</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="tab-contact" class="tab-content">
+            <div class="card" style="max-width: 650px; margin: 0 auto;">
+                <h2>Contact Specifications</h2>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">Corporate address endpoints and direct connection arrays:</p>
+                <div class="data-display" style="margin-top: 0; background: white;">
+                    <ul class="data-list">
+                        <li><strong>Lead Professional:</strong> <span>Umar Amin</span></li>
+                        <li><strong>Core Track Designation:</strong> <span>Lead Software Developer</span></li>
+                        <li><strong>Mobile Gateway:</strong> <span>+92 3277269576</span></li>
+                        <li><strong>Primary Inbox:</strong> <span style="color: var(--primary);">umaramin05655@gmail.com</span></li>
+                        <li><strong>Locality Vector:</strong> <span>Dera Ismail Khan, KPK, Pakistan</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-calculator" class="tab-content">
+            <div class="card" style="max-width: 500px; margin: 0 auto;">
+                <h2>Age Validation Engine</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Loops calculation evaluation framework structure.</p>
+
+                <form onsubmit="handleAgeCalc(event)">
+                    <div class="form-group">
+                        <label>Select Matrix Birth Year</label>
+                        <select id="birth_year" required>
+                            <option value="">-- Choose Target Year --</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Execute Chrono Calculation</button>
+                </form>
+
+                <div id="calcResult" style="display: none; margin-top: 2rem;" class="alert alert-success">
+                    <strong>System Evaluation:</strong> You are tentatively <span><span id="computed-age"></span> years</span> old.
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Umar Amin Portfolio Engineering. Standard Presentation Architecture Active.</p>
+    </footer>
+
+    <script>
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active-tab');
+            });
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.getElementById('tab-' + tabName).classList.add('active-tab');
+            document.getElementById('nav-' + tabName).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Loop execution equivalent simulation block
+        const selectYear = document.getElementById('birth_year');
+        const currentYear = 2026; 
+        for (let year = currentYear; year >= 1900; year--) {
+            let option = document.createElement('option');
+            option.value = year;
+            option.textContent = year;
+            sele
