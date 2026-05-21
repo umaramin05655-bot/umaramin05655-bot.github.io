@@ -3,16 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Umar Amin | Ultra Portfolio</title>
+<title>Umar Amin | Ultra Pro Max Portfolio</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg:#0f172a;
-  --card:#111827;
+  --bg:#0b1220;
+  --card:rgba(17,24,39,0.85);
   --text:#ffffff;
   --primary:#4F46E5;
+  --glow:0 0 25px rgba(79,70,229,0.7);
 }
 
 .light{
@@ -32,16 +33,24 @@
 body{
   background:var(--bg);
   color:var(--text);
-  transition:0.4s;
   overflow-x:hidden;
 }
 
-/* PARTICLES */
-#particles{
+/* BACKGROUND GRADIENT ANIMATION */
+body::before{
+  content:"";
   position:fixed;
-  width:100%;
-  height:100%;
-  z-index:-1;
+  width:200%;
+  height:200%;
+  background:radial-gradient(circle,rgba(79,70,229,0.3),transparent 40%),
+             radial-gradient(circle,rgba(16,185,129,0.2),transparent 40%);
+  animation:move 10s infinite alternate;
+  z-index:-2;
+}
+
+@keyframes move{
+  from{transform:translate(-10%,-10%);}
+  to{transform:translate(10%,10%);}
 }
 
 /* NAV */
@@ -51,10 +60,11 @@ nav{
   top:0;
   display:flex;
   justify-content:space-between;
+  align-items:center;
   padding:15px 20px;
-  background:rgba(79,70,229,0.9);
+  background:rgba(0,0,0,0.4);
   backdrop-filter:blur(10px);
-  color:white;
+  z-index:1000;
 }
 
 nav a{
@@ -73,32 +83,55 @@ nav a{
   text-align:center;
 }
 
+.hero img{
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  border:4px solid var(--primary);
+  box-shadow:var(--glow);
+  margin-bottom:15px;
+}
+
 .hero h1{
-  font-size:40px;
+  font-size:42px;
 }
 
 .hero span{
   color:var(--primary);
 }
 
-/* CARD */
+.typing{
+  margin-top:10px;
+  opacity:0.8;
+}
+
+/* SECTION */
 section{
   padding:80px 20px;
   max-width:1000px;
   margin:auto;
 }
 
+/* CARD */
 .card{
   background:var(--card);
   padding:25px;
-  border-radius:15px;
+  border-radius:18px;
   margin-top:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  box-shadow:0 20px 40px rgba(0,0,0,0.3);
+  transform:translateY(40px);
+  opacity:0;
+  transition:0.6s;
 }
 
-/* SKILLS BAR */
+.card.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+/* SKILLS */
 .skill{
-  margin:10px 0;
+  margin:12px 0;
 }
 
 .bar{
@@ -119,15 +152,58 @@ section{
   to{width:var(--w);}
 }
 
-/* BUTTONS */
+/* PROJECTS 3D */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+}
+
+.project{
+  padding:20px;
+  border-radius:15px;
+  background:rgba(255,255,255,0.05);
+  transition:0.3s;
+  transform-style:preserve-3d;
+}
+
+.project:hover{
+  transform:rotateY(10deg) rotateX(10deg) scale(1.05);
+  box-shadow:var(--glow);
+}
+
+/* BUTTON */
 .btn{
   background:var(--primary);
   color:white;
   border:none;
   padding:10px 15px;
-  border-radius:10px;
+  border-radius:12px;
   cursor:pointer;
   margin-top:10px;
+  box-shadow:var(--glow);
+}
+
+/* CONTACT */
+input,textarea{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:10px;
+  border:none;
+}
+
+/* WHATSAPP */
+.whatsapp{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#25D366;
+  padding:15px;
+  border-radius:50%;
+  font-size:20px;
+  color:white;
+  box-shadow:0 0 20px #25D366;
 }
 
 /* FOOTER */
@@ -136,37 +212,15 @@ footer{
   padding:20px;
   background:var(--primary);
   color:white;
-}
-
-/* TYPING */
-.typing{
-  font-size:18px;
-  color:#cbd5e1;
-  margin-top:10px;
-}
-
-/* FLOAT BUTTON */
-.whatsapp{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  background:#25D366;
-  color:white;
-  padding:12px;
-  border-radius:50%;
-  font-size:20px;
+  margin-top:30px;
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="particles"></canvas>
-
-<!-- NAV -->
 <nav>
 <div><b>Umar Amin</b></div>
-
 <div>
 <a href="#home">Home</a>
 <a href="#skills">Skills</a>
@@ -178,6 +232,8 @@ footer{
 
 <!-- HERO -->
 <section id="home" class="hero">
+<img src="umi.jpg" alt="profile">
+
 <h1>Hi, I'm <span>Umar Amin</span></h1>
 <div class="typing" id="typing"></div>
 
@@ -191,33 +247,37 @@ footer{
 <div class="card">
 <div class="skill">HTML<div class="bar"><div class="fill" style="--w:95%"></div></div></div>
 <div class="skill">CSS<div class="bar"><div class="fill" style="--w:90%"></div></div></div>
-<div class="skill">JavaScript<div class="bar"><div class="fill" style="--w:85%"></div></div></div>
-<div class="skill">React<div class="bar"><div class="fill" style="--w:70%"></div></div></div>
+<div class="skill">JavaScript<div class="bar"><div class="fill" style="--w:88%"></div></div></div>
+<div class="skill">React<div class="bar"><div class="fill" style="--w:75%"></div></div></div>
 </div>
 </section>
 
 <!-- PROJECTS -->
 <section id="projects">
 <h2>Projects</h2>
-<div class="card">
-<p>✔ Portfolio Website</p>
-<p>✔ Calculator App</p>
-<p>✔ Login UI System</p>
-<p>✔ Student Dashboard</p>
+
+<div class="card grid">
+<div class="project">Portfolio Website</div>
+<div class="project">Calculator App</div>
+<div class="project">Login UI</div>
+<div class="project">Student System</div>
 </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
 <h2>Contact</h2>
+
 <div class="card">
-<p>Email: umaramin05655@gmail.com</p>
-<p>Phone: +92 3277269576</p>
+<input placeholder="Your Name">
+<input placeholder="Your Email">
+<textarea placeholder="Message"></textarea>
+<button class="btn">Send Message</button>
 </div>
 </section>
 
 <footer>
-© 2026 Umar Amin Portfolio
+© 2026 Umar Amin | Ultra Pro Max Portfolio
 </footer>
 
 <a class="whatsapp" href="https://wa.me/923277269576">💬</a>
@@ -229,15 +289,15 @@ function toggle(){
   document.body.classList.toggle("light");
 }
 
-/* TYPING EFFECT */
-let text="Frontend Developer | Web Designer | Programmer";
+/* TYPING */
+let text="Frontend Developer | UI Designer | Freelancer";
 let i=0;
 
 function type(){
   if(i<text.length){
     document.getElementById("typing").innerHTML += text.charAt(i);
     i++;
-    setTimeout(type,80);
+    setTimeout(type,70);
   }
 }
 type();
@@ -250,36 +310,17 @@ function downloadCV(){
   a.click();
 }
 
-/* PARTICLES */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
+/* SCROLL ANIMATION */
+const cards=document.querySelectorAll(".card");
 
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particles=[];
-
-for(let i=0;i<80;i++){
-  particles.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    r:Math.random()*3
+window.addEventListener("scroll",()=>{
+  cards.forEach(c=>{
+    if(c.getBoundingClientRect().top < window.innerHeight - 80){
+      c.classList.add("show");
+    }
   });
-}
+});
 
-function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle="white";
-
-  particles.forEach(p=>{
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fill();
-  });
-
-  requestAnimationFrame(draw);
-}
-draw();
 </script>
 
 </body>
