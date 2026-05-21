@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Umar Amin | Portfolio Pro (Video + Projects)</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0b1220;
+  --card:rgba(255,255,255,0.08);
+  --text:#fff;
+  --primary:#6C63FF;
+}
+
+.light{
+  --bg:#f4f6fb;
+  --card:#fff;
+  --text:#111;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Inter;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* NAV */
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  padding:15px;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(10px);
+  z-index:1000;
+  color:white;
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+.hero img{
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  border:3px solid var(--primary);
+  margin-bottom:10px;
+}
+
+/* SECTIONS */
+section{
+  padding:80px 20px;
+  max-width:1000px;
+  margin:auto;
+}
+
+.card{
+  background:var(--card);
+  padding:20px;
+  border-radius:15px;
+  margin-top:20px;
+  backdrop-filter:blur(15px);
+}
+
+/* BUTTON */
+.btn{
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:10px;
+  border-radius:10px;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+/* PROJECT GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:15px;
+}
+
+/* PROJECT CARD */
+.project{
+  padding:15px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.05);
+  position:relative;
+}
+
+.project video,
+.project img{
+  width:100%;
+  border-radius:10px;
+  margin-top:10px;
+}
+
+/* DELETE BUTTON */
+.del{
+  position:absolute;
+  top:10px;
+  right:10px;
+  background:red;
+  border:none;
+  color:white;
+  padding:5px 8px;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+/* INPUTS */
+input,textarea{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:8px;
+  border:none;
+}
+
+/* FLOAT BUTTON */
+.theme{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  background:var(--primary);
+  padding:12px;
+  border-radius:50%;
+  cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+<div><b>Umar Amin Portfolio</b></div>
+<button onclick="toggle()">🌙</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+<img src="umi.jpg">
+<h1>Umar Amin</h1>
+<p>Developer | Designer | Video Creator</p>
+</section>
+
+<!-- ADD PROJECT -->
+<section>
+<h2>Add New Project (Video/Image)</h2>
+
+<div class="card">
+<input id="title" placeholder="Project Title">
+<input id="video" placeholder="Video URL (YouTube embed or mp4 link)">
+<input id="img" placeholder="Image URL (optional)">
+<button class="btn" onclick="addProject()">➕ Add Project</button>
+</div>
+</section>
+
+<!-- PROJECTS -->
+<section>
+<h2>My Projects</h2>
+<div class="grid" id="projects"></div>
+</section>
+
+<!-- CONTACT -->
+<section>
+<h2>Contact</h2>
+
+<div class="card">
+<input placeholder="Name">
+<input placeholder="Email">
+<textarea placeholder="Message"></textarea>
+<button class="btn">Send</button>
+</div>
+</section>
+
+<div class="theme" onclick="toggle()">🌙</div>
+
+<script>
+
+/* DARK MODE */
+function toggle(){
+  document.body.classList.toggle("light");
+}
+
+/* LOAD PROJECTS */
+let projects = JSON.parse(localStorage.getItem("projects")) || [];
+
+function render(){
+  let box=document.getElementById("projects");
+  box.innerHTML="";
+
+  projects.forEach((p,i)=>{
+    box.innerHTML += `
+      <div class="project">
+        <button class="del" onclick="del(${i})">X</button>
+        <h3>${p.title}</h3>
+
+        ${p.video ? `<video controls src="${p.video}"></video>` : ""}
+
+        ${p.img ? `<img src="${p.img}">` : ""}
+      </div>
+    `;
+  });
+}
+
+render();
+
+/* ADD PROJECT */
+function addProject(){
+  let p={
+    title:document.getElementById("title").value,
+    video:document.getElementById("video").value,
+    img:document.getElementById("img").value
+  };
+
+  projects.push(p);
+  localStorage.setItem("projects",JSON.stringify(projects));
+  render();
+
+  document.getElementById("title").value="";
+  document.getElementById("video").value="";
+  document.getElementById("img").value="";
+}
+
+/* DELETE */
+function del(i){
+  projects.splice(i,1);
+  localStorage.setItem("projects",JSON.stringify(projects));
+  render();
+}
+
+</script>
+
+</body>
+</html>
